@@ -29,13 +29,10 @@ fn print_color(color: Color) -> () {
     }
 }
 
-
-
 #[derive(Debug)]
 struct Custom {
-
-    age : usize,
-    name : String
+    age: usize,
+    name: String,
 }
 
 #[derive(Debug)]
@@ -43,12 +40,9 @@ enum Item {
     Number(usize),
     String(String),
     MyCustom(Custom),
-    
 }
 
-
-fn append(items : &mut Vec<Item>){
-    
+fn append(items: &mut Vec<Item>) {
     items.push(Item::String("Hola".into()));
 
     println!("{:?}", *items);
@@ -56,25 +50,35 @@ fn append(items : &mut Vec<Item>){
     println!("{:?}", items);
 }
 
+fn practice(nums: &Vec<usize>, index: usize) -> usize {
+    return nums.get(index).unwrap_or(&index) * 5;
+}
 
+fn multiply(num: Option<usize>) -> Option<usize> {
+    //return num.unwrap_or(0) * 5;
 
+    return Some(num?);
+}
+
+fn read_file(filename: String) {
+    let file = std::fs::read_to_string(filename).expect("Unable to read the file to string");
+    file.lines().for_each(|line| {
+        if let Ok(value) = line.parse::<usize>() {
+            println!("{}", value);
+        } else {
+            println!("Line not a number");
+        }
+    });
+}
 fn main() {
     //let ooo = Color::Green;
     //
-    let mut items : Vec<Item> = vec![];
+    let mut items: Vec<Item> = vec![];
     println!("{:?}", items);
 
     append(&mut items);
-
-
-
-    //println!("{:?}", ooo.is_green());
-
+    let arg = std::env::args()
+        .nth(1)
+        .expect("The filename to be passed in");
+    read_file(arg);
 }
-
-
-
-
-
-
-
