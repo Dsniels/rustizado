@@ -61,7 +61,8 @@ fn multiply(num: Option<usize>) -> Option<usize> {
 }
 
 fn read_file(filename: String) {
-    let file = std::fs::read_to_string(filename).expect("Unable to read the file to string");
+    let file = std::fs::read_to_string(filename)
+                                .expect("Unable to read the file to string");
     file.lines().for_each(|line| {
         if let Ok(value) = line.parse::<usize>() {
             println!("{}", value);
@@ -70,7 +71,10 @@ fn read_file(filename: String) {
         }
     });
 }
-fn main() {
+
+
+//Borrow checker
+fn init(){
     //let ooo = Color::Green;
     //
     let mut items: Vec<Item> = vec![];
@@ -81,4 +85,29 @@ fn main() {
         .nth(1)
         .expect("The filename to be passed in");
     read_file(arg);
+}
+
+#[derive(Debug)]
+struct ItemCount {
+    count : usize
+}
+
+fn add_one(item: &mut ItemCount){
+    item.count += 1;
+}
+
+fn print_all(items: &Vec<ItemCount>){
+    for item in items{
+        println!("{:?}", item);
+    }
+    
+}
+
+
+fn main() {
+    let mut items = vec![ItemCount{count:1}];
+    // let first = items.get_mut(0);
+    let second = items.get_mut(1);
+    // println!("{:?}",first);
+
 }
