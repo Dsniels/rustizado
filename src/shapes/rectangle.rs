@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::{fmt::Display, os::windows::{self, process}};
 
 use super::area::Area;
 
@@ -14,8 +14,6 @@ impl Rectangle {
         return self.x <= x && self.x + self.width >= x && 
                 self.y <= y && self.y + self.height >= y;
     }
-
-
 }
 
 impl Area for Rectangle {
@@ -25,6 +23,7 @@ impl Area for Rectangle {
 }
 
 impl Display for Rectangle {
+
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         return write!(
             f,
